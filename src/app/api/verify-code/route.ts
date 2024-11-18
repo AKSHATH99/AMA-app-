@@ -20,6 +20,8 @@ export async function POST(request: Request) {
     const isCodeValid = user.verifyCode === code;
     const isCodeNotExpired = new Date(user.verifyCodeExpiry) > new Date();
 
+    console.log(isCodeNotExpired , isCodeValid)
+
     if (isCodeValid && isCodeNotExpired) {
       user.isVerified = true;
       const savedUser = await user.save();
@@ -34,7 +36,7 @@ export async function POST(request: Request) {
       );
     } else {
       return Response.json(
-        { success: true, message: "CODE wrong buddy " },
+        { success: false, message: "CODE wrong buddy " },
         { status: 200 }
       );
     }

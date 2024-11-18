@@ -7,10 +7,10 @@ import AuthProvider from '@/context/AuthProvider';
 
 const inter = Inter({ subsets: ['latin'] });
 
-export const metadata: Metadata = {
-  title: 'True Feedback',
-  description: 'Real feedback from real people.',
-};
+// export const metadata: Metadata = {
+//   title: 'True Feedback',
+//   description: 'Real feedback from real people.',
+// };
 
 interface RootLayoutProps {
   children: React.ReactNode;
