@@ -70,10 +70,13 @@ export async function POST(request: Request) {
 export async function GET(request: Request) {
     // Connect to the database
     await dbConnect();
+    console.log("trying to get it ")
   
     // Get the user session
     const session = await getServerSession(authOption);
     const user = session?.user;
+
+    console.log(session)
   
     // Check if the user is authenticated
     if (!session || !user) {

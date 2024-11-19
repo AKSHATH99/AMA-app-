@@ -3,11 +3,13 @@ import { getToken } from 'next-auth/jwt';
 export { default } from 'next-auth/middleware';
 
 export const config = {
-  matcher: ['/dashboard/:path*', '/sign-in', '/sign-up', '/', '/verify/:path*'],
+  matcher: ['/dashboard/:path*', '/sign-in', '/sign-up', '/', '/verify/:path*',"/api/accept-messages"],
 };
 
 export async function middleware(request: NextRequest) {
-  const token = await getToken({ req: request });
+
+  console.log("PASSING MIDDLEWARE YEAAAAA")
+  const token = await getToken({ req: request,secret: "1234567"  });
   const url = request.nextUrl;
 
   // Redirect to dashboard if the user is already authenticated

@@ -22,15 +22,20 @@ export const authOption: NextAuthOptions = {
       //This function defines the custom verification you write by calling query to db
       async authorize(credentials: any): Promise<any> {
         await dbConnect();
+      console.log("AM GOING THROUGH OPTIONS ")
+
 
         try {
           //Find user is real or not
+          console.log("123 inside options ")
+
           const user = await UserModel.findOne({
             $or: [
               { email: credentials.identifier },
               { username: credentials.identifier },
             ],
           });
+
 
           if (!user) {
             throw new Error("Not found with this email");
@@ -47,7 +52,7 @@ export const authOption: NextAuthOptions = {
             user.password
           );
 
-          if (!correctpass) {
+          if (correctpass) {
             return user;
           } else {
             throw new Error("Incorrect password ");
@@ -62,7 +67,8 @@ export const authOption: NextAuthOptions = {
   //Callbacks is used to set session and jwt and other authentication tools ,
   callbacks: {
     async session({ session, token }) {
-      if (token) {
+
+      if (token && session.user ) {
         session.user._id = token._id;
         session.user.isVerified = token.isVerified;
         session.user.isAcceptingMessages = token.isAcceptingMessages;
@@ -91,5 +97,5 @@ export const authOption: NextAuthOptions = {
   session: {
     strategy: "jwt",
   },
-  secret: process.env.NEXT_AUTH_SECRET,
+  secret: "1234567",
 };
